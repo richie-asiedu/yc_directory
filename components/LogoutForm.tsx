@@ -2,7 +2,7 @@
 import { signOut } from "next-auth/react";
 
 export default function LogoutForm() {
-  const handleLogout = async (e) => {
+  const handleLogout = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signOut();
   };
