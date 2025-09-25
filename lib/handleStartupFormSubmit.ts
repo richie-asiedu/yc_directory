@@ -50,7 +50,11 @@ export async function handleStartupFormSubmit(
       throw new Error(errorData.error || "Submission failed");
     }
   return { success: true, error: null, timeout: 800 };
-  } catch (error: any) {
-  return { success: false, error: error.message || "Unknown error", timeout: 800 };
+  } catch (error: unknown) {
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    return { success: false, error: errorMessage, timeout: 800 };
   }
 }
