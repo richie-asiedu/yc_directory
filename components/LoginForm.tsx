@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await signIn("github");
