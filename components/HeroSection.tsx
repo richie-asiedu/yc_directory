@@ -40,20 +40,20 @@ export default function HeroSection() {
 					Submit Ideas, Vote on Pitches, and Get Noticed in Virtual Competitions
 				</p>
 
-				<form className="w-full max-w-2xl mx-auto">
-					<div className="flex items-center bg-white rounded-full shadow-lg border-4 border-black px-6 py-3">
-						<input
-							type="text"
-							placeholder="SEARCH STARTUP"
-							className="flex-1 text-xl font-bold outline-none bg-transparent placeholder-black"
-						/>
-						<button type="submit" className="ml-4 bg-black rounded-full p-2 flex items-center justify-center cursor-pointer">
-							<svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
-							</svg>
-						</button>
-					</div>
-				</form>
+				   <form className="w-full max-w-2xl mx-auto">
+					   <div className="flex items-center bg-white rounded-full shadow-lg border-4 border-black px-6 py-3">
+						   <input
+							   type="text"
+							   placeholder="SEARCH STARTUP"
+							   className="flex-1 text-xl font-bold outline-none bg-transparent placeholder-black"
+						   />
+						   <button type="submit" className="ml-[-40px] bg-black rounded-full p-2 flex items-center justify-center cursor-pointer">
+							   <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+							   </svg>
+						   </button>
+					   </div>
+				   </form>
 			</div>
 		</section>
 	);

@@ -1,3 +1,4 @@
+import Image from "next/image";
 const cards = [
 	{
 		id: 1,
@@ -126,13 +127,27 @@ export default function RecommendedSection() {
 								<div className="text-base font-semibold text-black leading-tight mb-4">{card.author}</div>
 								<div className="text-[26px] font-extrabold text-black leading-tight font-sans">{card.title}</div>
 							</div>
-							<img src={card.avatar} alt="avatar" className="w-12 h-12 rounded-full object-cover border-2 border-white ml-2" />
+								<Image
+								  src={card.avatar}
+								  alt="avatar"
+								  width={48}
+								  height={48}
+								  className="w-12 h-12 rounded-full object-cover border-2 border-white ml-2"
+								  priority
+								/>
 						</div>
 						<div className="text-[#333333] text-[16px] mb-3 leading-snug line-clamp-2 font-sans">
 							{card.desc}
 						</div>
 						<div className="w-full aspect-[2/1] rounded-xl overflow-hidden mb-4 bg-gray-100 flex items-center justify-center border border-gray-200">
-							<img src={card.image} alt="project" className="object-cover w-full h-full" />
+							<Image
+								src={card.image}
+								alt="project"
+								width={400}
+								height={200}
+								className="object-cover w-full h-full"
+								priority
+							 />
 						</div>
 						<div className="flex justify-between items-center mt-auto pt-2">
 							<span className="text-[20px] text-black font-medium font-sans">{card.level}</span>

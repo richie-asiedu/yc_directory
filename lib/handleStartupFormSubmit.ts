@@ -35,7 +35,7 @@ export async function handleStartupFormSubmit(
   try {
     const parsed = StartupFormSchema.safeParse(fields);
     if (!parsed.success) {
-      const errorMsg = parsed.error.errors[0]?.message || "Validation failed";
+      const errorMsg = parsed.error.issues[0]?.message || "Validation failed";
       throw new Error(errorMsg);
     }
     const response = await fetch("/api/startup", {
