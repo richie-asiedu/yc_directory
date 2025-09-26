@@ -10,7 +10,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleLogin}>
-      <button type="submit" className="text-[#EF4444]">Login</button>
+      <button type="submit" className="text-[#EF4444] cursor-pointer hover:text-pink-700">Login</button>
     </form>
   );
 }
