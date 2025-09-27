@@ -106,7 +106,7 @@ const StartupForm = () => {
 
                 <button
                     type="submit"
-                    className="w-full bg-[#EE2B69] hover:bg-[#d7266b] text-white font-extrabold font-sans text-lg rounded-full py-3 mt-2 shadow-md border-3 border-black flex items-center justify-center gap-2 transition-colors"
+                    className="w-full bg-[#EE2B69] hover:bg-[#d7266b] text-white cursor-pointer font-extrabold font-sans text-lg rounded-full py-3 mt-2 shadow-md border-3 border-black flex items-center justify-center gap-2 transition-colors"
                 >
                     SUBMIT YOUR PITCH
                     <Image src='/Vector.png' alt="vector" width={20} height={10}  />

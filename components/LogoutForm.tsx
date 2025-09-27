@@ -9,7 +9,7 @@ export default function LogoutForm() {
 
   return (
     <form onSubmit={handleLogout}>
-      <button type="submit" className='text-[#EF4444] cursor-pointer'>Logout</button>
+      <button type="submit" className='text-[#EF4444] cursor-pointer hover:text-pink-700'>Logout</button>
     </form>
   );
 }

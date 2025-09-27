@@ -1,5 +1,8 @@
+"use client";
 import Image from "next/image";
-const cards = [
+
+
+const allCards = [
 	{
 		id: 1,
 		date: "20 May, 2023",
@@ -99,12 +102,25 @@ const cards = [
 
 ];
 
-export default function RecommendedSection() {
+export default function RecommendedSection({ query }) {
+	const filteredCards = allCards.filter(card => {
+		const q = query.toLowerCase();
+		return (
+			card.title.toLowerCase().includes(q) ||
+			card.desc.toLowerCase().includes(q) ||
+			card.author.toLowerCase().includes(q)
+		);
+	});
+
 	return (
-		<section className="w-full bg-[#F7F7F7] py-12 px-2 md:px-8">
-            <h1 className="text-black font-sans text-[30px] mb-[15px]">Recommended startups</h1>
-			<div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-				   {cards.map((card, idx) => (
+		   <section className="w-full bg-[#F7F7F7] py-12 px-2 md:px-8">
+			   {query ? (
+				   <h1 className="text-black font-sans text-[30px] mb-[15px]">Search results for "{query}"</h1>
+			   ) : (
+				   <h1 className="text-black font-sans text-[30px] mb-[15px]">All Startups</h1>
+			   )}
+			<div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 font-sans">
+				{filteredCards.length > 0 ? filteredCards.map((card, idx) => (
 					<div
 						key={idx}
 						className={`bg-white rounded-[2rem] shadow-6xl p-6 flex flex-col h-full relative border-8 border-black transition-colors duration-200 hover:border-[#EE2B69] ${card.highlight ? "border-black-500" : ""}`}
@@ -154,7 +170,9 @@ export default function RecommendedSection() {
 							<button className="bg-black text-white px-5 py-2 rounded-full font-sans font-semibold text-lg shadow hover:bg-[#EE2B69] transition-colors cursor-pointer">Details</button>
 						</div>
 					</div>
-				))}
+				)) : (
+					<div className="col-span-full text-center text-gray-500 text-xl py-10">No startups found.</div>
+				)}
 			</div>
 		</section>
 	);
