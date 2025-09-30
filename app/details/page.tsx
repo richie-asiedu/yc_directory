@@ -1,41 +1,47 @@
 "use client";
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import { defaultStartupCards } from "../../components/StartupCards";
+import { defaultStartupCards, StartupCard, Author } from "../../components/StartupCards";
 import Navbar from "../../components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-
 
 interface DetailsPageProps {
   params: { id: string };
 }
 
-const DetailsPage = ({ params }: DetailsPageProps) => {
+const DetailsPage = (_props: DetailsPageProps) => {
   const searchParams = useSearchParams();
-  const id = Number(searchParams.get("id"));
-  const card = defaultStartupCards.find((c: { id: number }) => c.id === id);
+  const idParam = searchParams.get("id");
+  const id = idParam ? Number(idParam) : NaN;
+  const card = defaultStartupCards.find((c) => c.id === id) as StartupCard | undefined;
 
   // Helpers
-  const getAuthorName = (value: any): string => {
-    if (!value) return "Author";
-    return typeof value === "object" ? value?.name ?? "Author" : String(value);
+  const getAuthorName = (author: StartupCard["author"]): string => {
+    return typeof author === "object" ? author?.name ?? "Author" : author ?? "Author";
   };
 
-  const getAvatarSrc = (value: any, fallback?: string): string => {
-    const byAuthor = typeof value === "object" ? value?.image : undefined;
-    return (fallback as string) || byAuthor || "/avator1.png";
+  const getAvatarSrc = (author: StartupCard["author"], fallback?: string): string => {
+    const authorImage = typeof author === "object" ? author?.image : undefined;
+    return fallback || authorImage || "/avator1.png";
   };
 
-  const formatDate = (value: any): string => {
-    const dateField = value?._createdAt || value?.createdAt || value?.date || value?.created || value?.publishedAt || value;
-    if (!dateField) return "Recent";
-    const dt = new Date(dateField);
-    if (isNaN(dt.getTime())) return "Recent";
-    const parts = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "long", year: "numeric" }).formatToParts(dt);
-    const day = parts.find((p) => p.type === "day")?.value || "";
-    const month = parts.find((p) => p.type === "month")?.value || "";
-    const year = parts.find((p) => p.type === "year")?.value || "";
+  const formatDateFromCard = (item: StartupCard): string => {
+    // Prefer explicit pretty date if provided in seed data
+    const explicit = item.date;
+    const isoLike = item._createdAt;
+    const candidate = explicit || isoLike;
+    if (!candidate) return "Recent";
+    const dt = new Date(candidate);
+    if (Number.isNaN(dt.getTime())) return "Recent";
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).formatToParts(dt);
+    const day = parts.find((p) => p.type === "day")?.value ?? "";
+    const month = parts.find((p) => p.type === "month")?.value ?? "";
+    const year = parts.find((p) => p.type === "year")?.value ?? "";
     return `${day} ${month}, ${year}`;
   };
 
@@ -43,29 +49,35 @@ const DetailsPage = ({ params }: DetailsPageProps) => {
     return <div>Card not found</div>;
   }
 
-  const cardAuthorName = getAuthorName((card as any).author);
-  const cardAvatarSrc = getAvatarSrc((card as any).author, (card as any).avatar);
-  const cardDate = formatDate((card as any));
+  const cardAuthorName = getAuthorName(card.author);
+  const cardAvatarSrc = getAvatarSrc(card.author, card.avatar);
+  const cardDate = formatDateFromCard(card);
 
   return (
     <>
       <Navbar />
       <div className="w-full bg-[#EE2B69] min-h-[380px] mb-8 mt-[3%] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(90deg,rgba(255, 255, 255, 0.37) 0 3px,transparent 8px 70px)" }} />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "repeating-linear-gradient(90deg,rgba(255, 255, 255, 0.37) 0 3px,transparent 8px 70px)",
+          }}
+        />
         <div className="mb-8 flex justify-center w-full">
           <div className="relative inline-block bg-[#fbe843] px-3 py-3 mt-[10%] sm:mt-[4%] rounded-1xl shadow-md min-w-[80px] md:min-w-[80px]">
             <span
               className="absolute top-2 left-2 w-3 h-3 bg-black"
               style={{
-                clipPath: 'polygon(0 0, 0 100%, 100% 0)',
-                borderTopLeftRadius: '0.15rem',
+                clipPath: "polygon(0 0, 0 100%, 100% 0)",
+                borderTopLeftRadius: "0.15rem",
               }}
             ></span>
             <span
               className="absolute bottom-2 right-2 w-3 h-3 bg-black"
               style={{
-                clipPath: 'polygon(100% 100%, 0 100%, 100% 0)',
-                borderBottomRightRadius: '0.15rem',
+                clipPath: "polygon(100% 100%, 0 100%, 100% 0)",
+                borderBottomRightRadius: "0.15rem",
               }}
             ></span>
             <span className="block text-[20px] md:text-2xl font-extrabold tracking-wide text-black text-center relative z-10">
@@ -77,18 +89,18 @@ const DetailsPage = ({ params }: DetailsPageProps) => {
           <span className="flex justify-center text-center bg-black px-15 py-5 rounded shadow-lg inline-block font-sans font-extrabold">{card.title}</span>
         </h1>
         <div className="flex justify-center w-full">
-          <p className="text-white text-[20px] text-center mt-4 w-full max-w-[60%]">{(card as any).desc ?? (card as any).description ?? ""}</p>
+          <p className="text-white text-[20px] text-center mt-4 w-full max-w-[60%]">{card.desc ?? card.description ?? ""}</p>
         </div>
       </div>
 
       <main className="min-h-screen">
         <section className="max-w-4xl mx-auto mt-10">
-          <Image src={(card as any).image} alt={card.title} width={800} height={400} className="w-full h-auto rounded-lg shadow-md" />
+          <Image src={card.image} alt={card.title} width={800} height={400} className="w-full h-auto rounded-lg shadow-md" />
           <div className="mt-8 flex items-center gap-4">
             <Image src={cardAvatarSrc} alt={cardAuthorName} width={48} height={48} className="rounded-full" />
             <div>
               <div className="font-extrabold text-[30px] font-sans">{cardAuthorName}</div>
-              <div className="text-black text-[20px] font-sans">{(card as any).mail ?? (card as any).email ?? ""}</div>
+              <div className="text-black text-[20px] font-sans">{card.mail ?? (typeof card.author === "object" ? card.author.email : "")}</div>
             </div>
             <span className="bg-[#ffe8f0] text-black font-bold px-6 py-2 rounded-full font-sans ml-auto">Education</span>
           </div>
@@ -96,7 +108,7 @@ const DetailsPage = ({ params }: DetailsPageProps) => {
           <div className="mt-6 font-sans">
             <h3 className="font-bold text-[30px] mb-2">Pitch details</h3>
             <div className="text-black text-base leading-relaxed">
-              <p>{(card as any).main ?? (card as any).pitch ?? ""}</p>
+              <p>{card.main ?? card.pitch ?? ""}</p>
             </div>
           </div>
 
@@ -105,14 +117,18 @@ const DetailsPage = ({ params }: DetailsPageProps) => {
             <h3 className="font-bold text-[30px] font-sans mb-4">Similar startups</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 font-sans">
               {defaultStartupCards
-                .filter((c: { id: number }) => c.id !== (card as any).id)
+                .filter((c) => c.id !== card.id)
                 .slice(0, 3)
-                .map((similar: any) => {
+                .map((similar: StartupCard) => {
                   const similarAuthorName = getAuthorName(similar.author);
                   const similarAvatarSrc = getAvatarSrc(similar.author, similar.avatar);
-                  const similarDate = formatDate(similar);
+                  const similarDate = formatDateFromCard(similar);
                   return (
-                    <div key={similar.id} className="bg-white rounded-[2rem] shadow-6xl p-6 flex flex-col h-full relative border-8 border-black transition-colors duration-200 hover:border-[#EE2B69]" style={{ minHeight: 420 }}>
+                    <div
+                      key={similar.id}
+                      className="bg-white rounded-[2rem] shadow-6xl p-6 flex flex-col h-full relative border-8 border-black transition-colors duration-200 hover:border-[#EE2B69]"
+                      style={{ minHeight: 420 }}
+                    >
                       <div className="flex justify-between items-center mb-5 border-black">
                         <span className="bg-pink-100 text-black text-base font-semibold px-3 py-2 rounded-full">{similarDate}</span>
                         <span className="flex items-center gap-1 text-black text-lg font-semibold">
