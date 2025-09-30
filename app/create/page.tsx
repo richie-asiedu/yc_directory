@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar"
 import StartupForm from "@/components/StartupForm"
+import { StartupCardProvider } from "@/components/StartupCardContext";
 
 const page = () => {
     return (
@@ -13,7 +14,9 @@ const page = () => {
                 </h1>
             </div>
 
-            <StartupForm />
+            <StartupCardProvider>
+               <StartupForm />
+            </StartupCardProvider>
 
         </>
     )
