@@ -13,8 +13,8 @@ export function StartupCards({ startups, loading, error }: StartupCardsProps) {
         return (
             <div className="col-span-full text-center text-gray-500 text-xl py-10">
                 <div className="flex items-center justify-center gap-2">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
-                    Loading startups...
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black"></div>
+                    Loading Startups...
                 </div>
             </div>
         );

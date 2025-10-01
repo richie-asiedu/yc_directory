@@ -121,6 +121,8 @@ const DetailsPage = (_props: DetailsPageProps) => {
                   const similarAuthorName = getAuthorName(similar.author);
                   const similarAvatarSrc = getAvatarSrc(similar.author, similar.avatar);
                   const similarDate = formatDateFromCard(similar);
+                  const similarHandle = similar.mail ?? `@${similarAuthorName.toLowerCase().replace(/\s+/g, "")}`;
+                  const similarHref = `/profile?name=${encodeURIComponent(similarAuthorName)}&avatar=${encodeURIComponent(similarAvatarSrc)}&handle=${encodeURIComponent(similarHandle)}`;
                   return (
                     <div
                       key={similar.id}
@@ -142,7 +144,9 @@ const DetailsPage = (_props: DetailsPageProps) => {
                           <div className="text-base font-semibold text-black leading-tight mb-4">{similarAuthorName}</div>
                           <div className="text-[26px] font-extrabold text-black leading-tight font-sans">{similar.title}</div>
                         </div>
-                        <Image src={similarAvatarSrc} alt={similarAuthorName} width={48} height={48} className="w-12 h-12 rounded-full object-cover border-2 border-white ml-2" priority />
+                        <Link href={similarHref} className="block">
+                          <Image src={similarAvatarSrc} alt={similarAuthorName} width={48} height={48} className="w-14 h-12 rounded-full object-cover border-2 border-white cursor-pointer" priority />
+                        </Link>
                       </div>
                       <div className="text-[#333333] text-[16px] mb-3 leading-snug line-clamp-2 font-sans">{similar.desc ?? similar.description}</div>
                       <div className="w-full aspect-[2/1] rounded-xl overflow-hidden mb-4 bg-gray-100 flex items-center justify-center border border-gray-200">
