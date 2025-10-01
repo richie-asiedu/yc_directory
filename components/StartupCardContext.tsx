@@ -54,7 +54,7 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
         await fetchStartups();
         return;
       }
-      const data = await client.fetch(searchStartupsQuery, { query: `*${query}*` });
+      const data = await client.fetch(searchStartupsQuery, { query: `*${query}*` } as any);
       setStartups(data);
     } catch (err) {
       console.error('Error searching startups:', err);

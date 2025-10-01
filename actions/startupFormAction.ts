@@ -1,4 +1,4 @@
-export async function startupFormAction(prevState, formData) {
+export async function startupFormAction(prevState: any, formData: FormData) {
     const title = formData.get("title");
     const description = formData.get("description");
     const category = formData.get("category");
@@ -21,6 +21,6 @@ export async function startupFormAction(prevState, formData) {
         }
         return { success: true, error: null };
     } catch (error) {
-        return { success: false, error: error.message || "Unknown error" };
+        return { success: false, error: (error as Error).message || "Unknown error" };
     }
 }

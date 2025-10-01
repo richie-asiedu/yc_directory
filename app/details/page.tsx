@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface DetailsPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const DetailsPage = (_props: DetailsPageProps) => {
@@ -16,7 +16,6 @@ const DetailsPage = (_props: DetailsPageProps) => {
   const id = idParam ? Number(idParam) : NaN;
   const card = defaultStartupCards.find((c) => c.id === id) as StartupCard | undefined;
 
-  // Helpers
   const getAuthorName = (author: StartupCard["author"]): string => {
     return typeof author === "object" ? author?.name ?? "Author" : author ?? "Author";
   };
@@ -27,7 +26,6 @@ const DetailsPage = (_props: DetailsPageProps) => {
   };
 
   const formatDateFromCard = (item: StartupCard): string => {
-    // Prefer explicit pretty date if provided in seed data
     const explicit = item.date;
     const isoLike = item._createdAt;
     const candidate = explicit || isoLike;

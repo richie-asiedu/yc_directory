@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
         hostname: '**',
       }
     ]
+  },
+  experimental: {
+    optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react']
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
   }
 };
 
