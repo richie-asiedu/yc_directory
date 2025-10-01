@@ -69,7 +69,6 @@ export const defaultStartupCards: StartupCard[] = [
 		author: "CoderTech",
 		views: 402,
 		description: "Learn coding with interactive lessons and real-world projects for all skill levels.",
-		category: "Technology",
 		image: "/des3.png",
 		date: "10 December, 2023",
 		mail: "@codertech",

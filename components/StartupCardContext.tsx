@@ -30,7 +30,7 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch startups from Sanity
+
   const fetchStartups = async () => {
     try {
       setLoading(true);
@@ -45,7 +45,7 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Search startups
+
   const searchStartups = async (query: string) => {
     try {
       setLoading(true);
@@ -64,7 +64,6 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Add new startup
   const addStartup = async (startupData: {
     title: string;
     description: string;
@@ -77,24 +76,23 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
     try {
       setError(null);
       
-      // Create author if provided
+
       let authorId: string | undefined;
       if (startupData.authorName) {
         const authorResult = await createAuthor({
           name: startupData.authorName,
           email: startupData.authorEmail,
-          image: '/avator1.png', // Default avatar
+          image: '/avator1.png',
         });
         authorId = authorResult._id;
       }
 
-      // Create startup
-      const result = await createStartup({
+      await createStartup({
         ...startupData,
         authorId,
       });
 
-      // Refresh the list
+
       await fetchStartups();
     } catch (err) {
       console.error('Error adding startup:', err);
@@ -103,11 +101,10 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Increment views
   const incrementViews = async (startupId: string) => {
     try {
       await updateStartupViews(startupId);
-      // Update local state
+
       setStartups(prev => 
         prev.map(startup => 
           startup._id === startupId 
@@ -120,12 +117,12 @@ export function StartupCardProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Refresh startups
+
   const refreshStartups = async () => {
     await fetchStartups();
   };
 
-  // Load startups on mount
+
   useEffect(() => {
     fetchStartups();
   }, []);

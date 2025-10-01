@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useStartupCards } from "./StartupCardContext";
 
 interface StartupFormProps {
-    onAddStartup?: (startup: any) => void; // Keep for backward compatibility
+    onAddStartup?: (startup: any) => void;
 }
 
 const StartupForm = ({ onAddStartup }: StartupFormProps) => {
@@ -39,7 +39,7 @@ const StartupForm = ({ onAddStartup }: StartupFormProps) => {
                 authorEmail: authorEmail || undefined,
             });
 
-            // Reset form
+
             setTitle("");
             setDescription("");
             setCategory("");
@@ -49,7 +49,7 @@ const StartupForm = ({ onAddStartup }: StartupFormProps) => {
             setAuthorEmail("");
             setSubmitSuccess(true);
 
-            // Call legacy callback if provided
+            
             if (onAddStartup) {
                 onAddStartup({
                     title,

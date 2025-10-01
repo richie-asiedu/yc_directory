@@ -69,14 +69,28 @@ export function StartupCards({ startups, loading, error }: StartupCardsProps) {
                                 </div>
                                 <div className="text-[26px] font-extrabold text-black leading-tight font-sans">{card.title}</div>
                             </div>
-                            <Image
-                                src={typeof card.author === 'object' && (card as any).author?.image ? (card as any).author.image : `/avator${(index % 3) + 1}.png`}
-                                alt="avatar"
-                                width={48}
-                                height={48}
-                                className="w-12 h-12 rounded-full object-cover border-2 border-white ml-2 cursor-pointer"
-                                priority
-                            />
+                            {(() => {
+                                const authorName = (typeof card.author === 'object' && (card as any).author?.name)
+                                  ? (card as any).author.name
+                                  : (typeof (card as any).author === 'string' ? (card as any).author : 'Anonymous');
+                                const avatarSrc = (typeof card.author === 'object' && (card as any).author?.image)
+                                  ? (card as any).author.image
+                                  : ((card as any).avatar || `/avator${(index % 3) + 1}.png`);
+                                const handle = (card as any).mail || `@${String(authorName || '').toLowerCase().replace(/\s+/g, '')}`;
+                                const href = `/profile?name=${encodeURIComponent(authorName)}&avatar=${encodeURIComponent(avatarSrc)}&handle=${encodeURIComponent(handle)}`;
+                                return (
+                                    <Link href={href} className="block ml-2">
+                                        <Image
+                                            src={avatarSrc}
+                                            alt={`${authorName} avatar`}
+                                            width={48}
+                                            height={38}
+                                            className="w-14 h-12 rounded-full object-cover border-2 border-white cursor-pointer"
+                                            priority
+                                        />
+                                    </Link>
+                                );
+                            })()}
                         </div>
                         <div className="text-[#333333] text-[16px] mb-3 leading-snug line-clamp-2 font-sans">
                             {card.description}
