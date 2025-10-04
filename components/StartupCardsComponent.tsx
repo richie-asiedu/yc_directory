@@ -79,13 +79,13 @@ export function StartupCards({ startups, loading, error }: StartupCardsProps) {
                                 const handle = (card as any).mail || `@${String(authorName || '').toLowerCase().replace(/\s+/g, '')}`;
                                 const href = `/profile?name=${encodeURIComponent(authorName)}&avatar=${encodeURIComponent(avatarSrc)}&handle=${encodeURIComponent(handle)}`;
                                 return (
-                                    <Link href={href} className="block ml-2">
+                                    <Link href={href} className="block">
                                         <Image
                                             src={avatarSrc}
                                             alt={`${authorName} avatar`}
                                             width={48}
-                                            height={38}
-                                            className="w-14 h-12 rounded-full object-cover border-2 border-white cursor-pointer"
+                                            height={48}
+                                            className="w-14 h-12 rounded-full object-cover border-1 border-white cursor-pointer"
                                             priority
                                         />
                                     </Link>
