@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { StartupCard } from "./StartupCards";
 import { client } from "@/lib/sanity";
-import { getAllStartupsQuery, searchStartupsQuery } from "@/lib/queries";
+import { getAllStartupsQuery } from "@/lib/queries";
 import { createStartup, createAuthor, updateStartupViews } from "@/lib/mutations";
 
 interface StartupCardContextType {
