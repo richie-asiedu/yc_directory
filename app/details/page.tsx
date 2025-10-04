@@ -5,8 +5,9 @@ import { defaultStartupCards, StartupCard } from "../../components/StartupCards"
 import Navbar from "../../components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
-const DetailsPage = () => {
+function DetailsContent() {
   const searchParams = useSearchParams();
   const idParam = searchParams.get("id");
   const id = idParam ? Number(idParam) : NaN;
@@ -160,6 +161,14 @@ const DetailsPage = () => {
         </section>
       </main>
     </>
+  );
+}
+
+const DetailsPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DetailsContent />
+    </Suspense>
   );
 };
 
