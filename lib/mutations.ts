@@ -1,6 +1,5 @@
 import { clientForMutations } from './sanity'
 
-// Create a new startup
 export async function createStartup(startupData: {
   title: string;
   description: string;

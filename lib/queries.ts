@@ -1,6 +1,5 @@
 import { groq } from 'next-sanity'
 
-// Query to get all startups with author information
 export const getAllStartupsQuery = groq`
   *[_type == "startup"] | order(_createdAt desc) {
     _id,
