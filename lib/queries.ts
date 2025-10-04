@@ -1,5 +1,4 @@
 import { groq } from 'next-sanity'
-import { StartupCard } from '@/components/StartupCards'
 
 // Query to get all startups with author information
 export const getAllStartupsQuery = groq`

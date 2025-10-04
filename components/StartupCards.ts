@@ -1,4 +1,3 @@
-import { StartupCards } from "./StartupCardsComponent";
 
 export interface Author {
 	_id: string;

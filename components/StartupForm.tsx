@@ -5,7 +5,13 @@ import Image from "next/image";
 import { useStartupCards } from "./StartupCardContext";
 
 interface StartupFormProps {
-    onAddStartup?: (startup: any) => void;
+    onAddStartup?: (startup: {
+        title: string;
+        description: string;
+        category: string;
+        image: string;
+        pitch: string;
+    }) => void;
 }
 
 const StartupForm = ({ onAddStartup }: StartupFormProps) => {

@@ -43,7 +43,7 @@ export function StartupCards({ startups, loading, error }: StartupCardsProps) {
                         <div className="flex justify-between items-center mb-5 border-black">
                             <span className="bg-pink-100 text-black text-base font-semibold px-3 py-2 rounded-full">
                                 {(() => {
-                                    const dateField = (card as any)._createdAt || (card as any).createdAt || (card as any).date || (card as any).created || (card as any).publishedAt;
+                                    const dateField = card._createdAt || (card as unknown as { createdAt?: string }).createdAt || card.date || (card as unknown as { created?: string }).created || (card as unknown as { publishedAt?: string }).publishedAt;
                                     if (!dateField) return 'Recent';
                                     const dt = new Date(dateField);
                                     if (isNaN(dt.getTime())) return 'Recent';
@@ -65,18 +65,18 @@ export function StartupCards({ startups, loading, error }: StartupCardsProps) {
                         <div className="flex items-center justify-between mb-1">
                             <div>
                                 <div className="text-base font-semibold text-black leading-tight mb-4">
-                                    {typeof card.author === 'object' && (card as any).author?.name ? (card as any).author.name : (typeof (card as any).author === 'string' ? (card as any).author : "Anonymous")}
+                                    {typeof card.author === 'object' && card.author?.name ? card.author.name : (typeof card.author === 'string' ? card.author : "Anonymous")}
                                 </div>
                                 <div className="text-[26px] font-extrabold text-black leading-tight font-sans">{card.title}</div>
                             </div>
                             {(() => {
-                                const authorName = (typeof card.author === 'object' && (card as any).author?.name)
-                                  ? (card as any).author.name
-                                  : (typeof (card as any).author === 'string' ? (card as any).author : 'Anonymous');
-                                const avatarSrc = (typeof card.author === 'object' && (card as any).author?.image)
-                                  ? (card as any).author.image
-                                  : ((card as any).avatar || `/avator${(index % 3) + 1}.png`);
-                                const handle = (card as any).mail || `@${String(authorName || '').toLowerCase().replace(/\s+/g, '')}`;
+                                const authorName = (typeof card.author === 'object' && card.author?.name)
+                                  ? card.author.name
+                                  : (typeof card.author === 'string' ? card.author : 'Anonymous');
+                                const avatarSrc = (typeof card.author === 'object' && card.author?.image)
+                                  ? card.author.image
+                                  : (card.avatar || `/avator${(index % 3) + 1}.png`);
+                                const handle = card.mail || `@${String(authorName || '').toLowerCase().replace(/\s+/g, '')}`;
                                 const href = `/profile?name=${encodeURIComponent(authorName)}&avatar=${encodeURIComponent(avatarSrc)}&handle=${encodeURIComponent(handle)}`;
                                 return (
                                     <Link href={href} className="block">
@@ -108,7 +108,7 @@ export function StartupCards({ startups, loading, error }: StartupCardsProps) {
                         <div className="flex justify-between items-center mt-auto pt-2">
                             <div className="flex flex-col">
                                 <span className="text-[20px] text-black font-medium font-sans">{card.category}</span>
-                                <span className="text-[18px] text-gray-600 font-medium">{(card as any).level || 'Beginner'}</span>
+                                <span className="text-[18px] text-gray-600 font-medium">{(card as unknown as { level?: string }).level || 'Beginner'}</span>
                             </div>
                             <Link href={`/details?id=${card._id || card.id || index}`} className="bg-black text-white px-5 py-2 rounded-full font-sans font-semibold text-lg shadow hover:bg-[#EE2B69] transition-colors cursor-pointer">Details</Link>
                         </div>

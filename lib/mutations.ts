@@ -1,5 +1,4 @@
 import { clientForMutations } from './sanity'
-import { StartupCard, Author } from '@/components/StartupCards'
 
 // Create a new startup
 export async function createStartup(startupData: {

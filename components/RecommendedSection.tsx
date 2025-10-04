@@ -2,7 +2,7 @@
 import { StartupCards } from "./StartupCardsComponent";
 import { StartupCard, defaultStartupCards } from "./StartupCards";
 
-export default function RecommendedSection({ query, startups, loading, error }: { query: string; startups: StartupCard[]; loading?: boolean; error?: string | null }) {
+export default function RecommendedSection({ query, startups, loading }: { query: string; startups: StartupCard[]; loading?: boolean; error?: string | null }) {
   const sourceCards: StartupCard[] =
     Array.isArray(startups) && startups.length > 0 ? startups : (defaultStartupCards as StartupCard[]);
 

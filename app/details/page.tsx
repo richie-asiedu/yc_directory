@@ -1,16 +1,12 @@
 "use client";
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import { defaultStartupCards, StartupCard, Author } from "../../components/StartupCards";
+import { defaultStartupCards, StartupCard } from "../../components/StartupCards";
 import Navbar from "../../components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 
-interface DetailsPageProps {
-  params: Promise<{ id: string }>;
-}
-
-const DetailsPage = (_props: DetailsPageProps) => {
+const DetailsPage = () => {
   const searchParams = useSearchParams();
   const idParam = searchParams.get("id");
   const id = idParam ? Number(idParam) : NaN;

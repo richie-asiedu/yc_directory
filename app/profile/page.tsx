@@ -3,12 +3,13 @@ import { StartupCards } from "@/components/StartupCardsComponent";
 import { defaultStartupCards } from "@/components/StartupCards";
 import Navbar from "@/components/Navbar";
 
-export default function ProfilePage({ searchParams }: { searchParams?: { name?: string; avatar?: string; handle?: string } }) {
+export default async function ProfilePage({ searchParams }: { searchParams?: Promise<{ name?: string; avatar?: string; handle?: string }> }) {
+  const resolvedSearchParams = await searchParams;
   const cards = defaultStartupCards.slice(0, 6);
-  const authorName = (searchParams?.name || "Nathan Smith");
+  const authorName = (resolvedSearchParams?.name || "Nathan Smith");
   const badgeName = authorName.toUpperCase();
-  const handle = (searchParams?.handle || "@nathansmith");
-  const avatarSrc = (searchParams?.avatar || "/Profile.png");
+  const handle = (resolvedSearchParams?.handle || "@nathansmith");
+  const avatarSrc = (resolvedSearchParams?.avatar || "/Profile.png");
 
   return (
     <> 
