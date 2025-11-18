@@ -14,7 +14,7 @@ const Navbar = () => {
           <Image src="/YCDirectory.png" alt="logo" width={144} height={30}/>
         </Link>
 
-        <div className="flex items-center gap-5 text-black font-extrabold font-sans">
+        <div className="flex items-center gap-4 text-black font-extrabold font-sans">
         {session && session.user ? (
           <>
             <Link href="/create">

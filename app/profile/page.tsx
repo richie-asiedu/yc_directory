@@ -24,6 +24,7 @@ export default async function ProfilePage({ searchParams }: { searchParams?: Pro
               </span>
             </div>
 
+
             <div className="mt-10 flex flex-col items-center text-center">
               <div className="w-48 h-48 rounded-full border-8 border-black bg-white overflow-hidden shadow-xl">
                 <Image

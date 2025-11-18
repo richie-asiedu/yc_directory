@@ -12,7 +12,7 @@ const SearchFormReset = () => {
     return (
         <button type="reset" onClick={reset} className="ml-[-125px] bg-black rounded-full p-2 flex items-center justify-center cursor-pointer text-white">
             <Link href="/">
-                <X className="size-5" />
+                <X className="size-4" />
             </Link>
         </button>
     );
